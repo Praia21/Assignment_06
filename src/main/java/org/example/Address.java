@@ -46,6 +46,10 @@ public class Address {
         return false;
     }
     @Override
+    public String toString() {
+        return streetNo + " " + street + ", " + city + ", " + province + ", " + postalCode + ", " + country;
+    }
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;

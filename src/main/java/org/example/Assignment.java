@@ -18,7 +18,7 @@ public class Assignment {
     private int maxScore;
     private double assignmentAverage;
     private ArrayList<Integer> scores;
-    private static int nextId;
+    private static int nextId = 1;
 
     public Assignment(String assignmentName, double weight, int maxScore) {
         this.assignmentId = "A" + String.format("%03d", nextId++);
@@ -55,5 +55,10 @@ public class Assignment {
             scores.set(i, score);
         }
     }
+    @Override
+    public String toString() {
+        return assignmentId + ": " + assignmentName + ", Weight: " + weight + ", Max Score: " + maxScore;
+    }
+
 
 }

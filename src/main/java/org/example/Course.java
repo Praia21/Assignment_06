@@ -8,33 +8,109 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @EqualsAndHashCode
+
 public class Course {
     private String courseId;
     private String courseName;
     private double credits;
     Department department;
-    private static ArrayList<Assignment> assignments = new ArrayList<>();
-    private static ArrayList<Student> students = new ArrayList<>();
-    private static String nextId;
+    private static ArrayList<Assignment> assignments;
+    private static ArrayList<Student> students;
+    private ArrayList<Double> finalScores;
+    private static int nextId = 1;
 
-    public static boolean isAssignmentWeightValid() {
+    public Course(String courseName, double credits, Department department) {
+        this.courseId = "C-" + department.getDepartmentId() + "-" + String.format("%02d", nextId++);
+        this.courseName = Util.toTitleCase(courseName);
+        this.credits = credits;
+        this.department = department;
+        this.assignments = new ArrayList<>();
+        this.registeredStudents = new ArrayList<>();
+        this.finalScores = new ArrayList<>();
+    }
+
+    public boolean isAssignmentWeightValid() {
         double totalWeight = 0;
         for (Assignment assignment : assignments) {
             totalWeight += assignment.getWeight();
         }
-        return totalWeight == 100;
+        return totalWeight == 1.0;
     }
-    public static double calcAssignmentsAverage() {
-        double totalScore = 0;
-        int totalAssignments = 0;
 
-        for(Assignment assignment : assignments) {
-            for(Student student: students) {
-
+    public boolean registerStudent(Student student) {
+        if (!registeredStudents.contains(student)) {
+            registeredStudents.add(student);
+            finalScores.add(null);
+            for (Assignment assignment : assignments) {
+                assignment.getScores().add(null);
             }
+            return true;
         }
-        return totalAssignments != 0 ? totalScore / totalAssignments : 0;
+        return false;
     }
 
+    public int[] calcStudentsAverage() {
+        int[] averages = new int[registeredStudents.size()];
+        for (int i = 0; i < registeredStudents.size(); i++) {
+            double weightedSum = 0;
+            for (Assignment assignment : assignments) {
+                if (assignment.getScores().get(i) != null) {
+                    weightedSum += assignment.getScores().get(i) * assignment.getWeight();
+                }
+            }
+            averages[i] = (int) weightedSum;
+        }
+        return averages;
+    }
+
+    public boolean addAssignment(String assignmentName, double weight, int maxScore) {
+        Assignment assignment = new Assignment(assignmentName, weight, maxScore);
+        return assignments.add(assignment);
+    }
+
+    public void generateScores() {
+        for (Assignment assignment : assignments) {
+            assignment.generateRandomScore();
+        }
+        calcStudentsAverage();
+    }
+
+    public void displayScores() {
+        System.out.println("Course: " + courseName + " (" + courseId + ")");
+        System.out.print("                    ");
+        for (Assignment assignment : assignments) {
+            System.out.print(assignment.getAssignmentName() + "   ");
+        }
+        System.out.println("Final Score");
+        for (Student student : registeredStudents) {
+            System.out.print(student.getStudentName() + "             ");
+            for (Assignment assignment : assignments) {
+                System.out.print(assignment.getScores().get(registeredStudents.indexOf(student)) + "             ");
+            }
+            System.out.println(finalScores.get(registeredStudents.indexOf(student)));
+        }
+        System.out.print("Average             ");
+        for (Assignment assignment : assignments) {
+            System.out.print(assignment.getAssignmentAverage() + "             ");
+        }
+        System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        return courseId + ": " + courseName + ", Credits: " + credits + ", " + department + ", Assignments: " + assignments + ", Registered Students: " + registeredStudents;
+    }
+
+    public String toSimplifiedString() {
+        return courseId + ": " + courseName + ", Credits: " + credits + ", " + department.getDepartmentName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Course course = (Course) obj;
+        return courseId.equals(course.courseId);
+    }
 
 }
