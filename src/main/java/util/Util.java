@@ -22,7 +22,7 @@ public class Util {
             } titleCaseString.append(Character.toUpperCase(
                     word.charAt(0))).append(word.substring(1).toUpperCase());
         }
-        return strIn;
+        return toTitleCase(strIn).toString().trim();
     }
-      return titleCaseString.toString();
+
 }

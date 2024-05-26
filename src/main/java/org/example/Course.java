@@ -1,6 +1,7 @@
 package org.example;
 
 import lombok.*;
+import util.Util;
 
 import java.util.ArrayList;
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class Course {
         this.credits = credits;
         this.department = department;
         this.assignments = new ArrayList<>();
-        this.registeredStudents = new ArrayList<>();
+        this.students = new ArrayList<>();
         this.finalScores = new ArrayList<>();
     }
 
@@ -38,8 +39,8 @@ public class Course {
     }
 
     public boolean registerStudent(Student student) {
-        if (!registeredStudents.contains(student)) {
-            registeredStudents.add(student);
+        if (!students.contains(student)) {
+            students.add(student);
             finalScores.add(null);
             for (Assignment assignment : assignments) {
                 assignment.getScores().add(null);
@@ -50,8 +51,8 @@ public class Course {
     }
 
     public int[] calcStudentsAverage() {
-        int[] averages = new int[registeredStudents.size()];
-        for (int i = 0; i < registeredStudents.size(); i++) {
+        int[] averages = new int[students.size()];
+        for (int i = 0; i < students.size(); i++) {
             double weightedSum = 0;
             for (Assignment assignment : assignments) {
                 if (assignment.getScores().get(i) != null) {
@@ -82,12 +83,12 @@ public class Course {
             System.out.print(assignment.getAssignmentName() + "   ");
         }
         System.out.println("Final Score");
-        for (Student student : registeredStudents) {
+        for (Student student : students) {
             System.out.print(student.getStudentName() + "             ");
             for (Assignment assignment : assignments) {
-                System.out.print(assignment.getScores().get(registeredStudents.indexOf(student)) + "             ");
+                System.out.print(assignment.getScores().get(students.indexOf(student)) + "             ");
             }
-            System.out.println(finalScores.get(registeredStudents.indexOf(student)));
+            System.out.println(finalScores.get(students.indexOf(student)));
         }
         System.out.print("Average             ");
         for (Assignment assignment : assignments) {
@@ -98,7 +99,9 @@ public class Course {
 
     @Override
     public String toString() {
-        return courseId + ": " + courseName + ", Credits: " + credits + ", " + department + ", Assignments: " + assignments + ", Registered Students: " + registeredStudents;
+        return courseId + ": " + courseName + ", Credits: " + credits + ", "
+                + department + ", Assignments: " +
+                assignments + ", Registered Students: " + students;
     }
 
     public String toSimplifiedString() {
