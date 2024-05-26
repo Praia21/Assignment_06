@@ -33,6 +33,11 @@ public class Address {
         }
     }
 
+    /**
+     * Validates the postal code
+     * @param postalCode the postal code to be validated
+     * @return true if the postal code is valid or false
+     */
     public static boolean isPostalCodeValid(String postalCode) {
         if (postalCode == null) {
             return false;
@@ -49,6 +54,12 @@ public class Address {
     public String toString() {
         return streetNo + " " + street + ", " + city + ", " + province + ", " + postalCode + ", " + country;
     }
+
+    /**
+     * compares this address to another object for equality.
+     * @param obj the object to compare to
+     * @return true if the objects are equal, false if there are not
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

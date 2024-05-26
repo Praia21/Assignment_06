@@ -22,6 +22,12 @@ public class Department {
             this.departmentName = null;
         }
     }
+
+    /**
+     * Validates a department name
+     * @param departmentName the department name to be validated
+     * @return true if the department name is valid, false if not
+     */
     public static boolean validateDepartmentName(String departmentName) {
         return departmentName != null && departmentName.matches("[a-zA-Z ]+");
     }
@@ -36,11 +42,16 @@ public class Department {
         return departmentId + ": " + departmentName;
     }
 
+    /**
+     * Compares this department to another object for equality
+     * @param obj the object to compare to
+     * @return true if the objects are equal, if not is false
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Department that = (Department) obj;
         return departmentId.equals(that.departmentId) && departmentName.equals(that.departmentName);
     }
 }
