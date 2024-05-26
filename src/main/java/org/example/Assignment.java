@@ -2,6 +2,9 @@ package org.example;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -13,6 +16,8 @@ public class Assignment {
     private String assignmentName;
     private double weight;
     private int maxScore;
+    private double assignmentAverage;
+    private ArrayList<Integer> scores;
     private static int nextId;
 
     public Assignment(String assignmentName, double weight, int maxScore) {
@@ -50,8 +55,5 @@ public class Assignment {
             scores.set(i, score);
         }
     }
-
-
-
 
 }
