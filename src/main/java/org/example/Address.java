@@ -3,10 +3,8 @@ package org.example;
 import lombok.*;
 
 @NoArgsConstructor
-@ToString
 @Setter
 @Getter
-@EqualsAndHashCode
 public class Address {
     private int streetNo;
     private String street;

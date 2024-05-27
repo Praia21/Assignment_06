@@ -2,9 +2,9 @@ package util;
 
 public class Util {
     /**
-     * converts each words in the inphut string to title case.
+     * converts each words in the input string to title case.
      * @param strIn the input string to tile case.
-     * @returnthe dinput string with esch word converted to title case
+     * @return the input string with each word converted to title case
      */
     public static String toTitleCase(String strIn){
         if (strIn == null || strIn.isEmpty()){

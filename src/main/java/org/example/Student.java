@@ -1,6 +1,7 @@
 package org.example;
 
 import lombok.*;
+import util.Util;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class Student {
 
     public Student(String studentName, Gender gender, Address address, Department department) {
         this.studentId = "S" + String.format("%06d", nexId++);
-        this.studentName = studentName;
+        this.studentName = Util.toTitleCase(studentName);
         this.gender = gender;
         this.address = address;
         this.department = department;
@@ -33,12 +34,12 @@ public class Student {
      * @param course the course to be registered
      * @return true if the course was successfully registered, false if it was already registered
      */
-    public boolean registerCourse(Course course) {
+    public boolean registerCourse (Course course) {
         if (!registeredCourses.contains(course)) {
             registeredCourses.add(course);
-            course.setCredits().add(this);
+            course.getClass().cast(this);
             course.getFinalScores().add(null);
-            for (Assignment assignment : course.addAssignment()) {
+            for (Assignment assignment : course.registerStudent()){
                 assignment.getScores().add(null);
             }
             return true;
@@ -54,7 +55,7 @@ public class Student {
     public boolean dropCourse(Course course) {
         if (registeredCourses.contains(course)) {
             registeredCourses.remove(course);
-            course.addAssignment();
+            course.registerStudent().remove(null);
             course.getFinalScores().remove(null);
             for (Assignment assignment : course.addAssignment()) assignment.getScores().remove(null);
             return true;
@@ -66,7 +67,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return studentId + ": " + studentName + ", " + gender + ", " + address + ", " + department + ", Registered Courses: " + registeredCourses;
+        return studentId + ": " + studentName + ", " + gender + ", " + address + ", "
+                + department + ", Registered Courses: " + registeredCourses;
     }
 
     public String toSimplifiedString() {
@@ -75,7 +77,7 @@ public class Student {
 
     /**
      * compares this student to another object for equality
-     * @param obj the objevt to compare to
+     * @param obj the object to compare to
      * @return true if the objects are equal, false if not
      */
     @Override

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 
 public class Course {
     private String courseId;
@@ -20,7 +19,7 @@ public class Course {
     private ArrayList<Double> finalScores;
     private static int nextId = 1;
 
-    public Course(String courseName, double credits, Department department) {
+    public Course(String courseName, String s, double credits, Department department) {
         this.courseId = "C-" + department.getDepartmentId() + "-" + String.format("%02d", nextId++);
         this.courseName = Util.toTitleCase(courseName);
         this.credits = credits;
@@ -64,8 +63,8 @@ public class Course {
         return averages;
     }
 
-    public boolean addAssignment(String assignmentName, double weight, int maxScore) {
-        Assignment assignment = new Assignment(assignmentName, weight, maxScore);
+    public boolean addAssignment(Assignment assignment1) {
+        Assignment assignment = new Assignment();
         return assignments.add(assignment);
     }
 
