@@ -5,7 +5,7 @@ import util.Util;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Testing Address class...");
+
         Address address1 = new Address(123,
                 "Main St", "Springfield", "IL", "A1B2C3", "USA");
         Address address2 = new Address(456,
@@ -15,18 +15,14 @@ public class Main {
 
         System.out.println("Address 1: " + address1);
         System.out.println("Address 2: " + address2);
-        System.out.println("Address 3: " + address3); // Should be null
+        System.out.println("Address 3: " + address3);
 
-
-        System.out.println("\nTesting Department class...");
         Department department1 = new Department("D01", "Computer Science");
         Department department2 = new Department("D02", "Math123");
 
         System.out.println("Department 1: " + department1);
-        System.out.println("Department 2: " + department2); // Should be null
+        System.out.println("Department 2: " + department2);
 
-
-        System.out.println("\nTesting Student class...");
         Student student1 = new Student("Alice", Gender.FEMALE, address1, department1);
         Student student2 = new Student("Bob", Gender.MALE, address2, department1);
 
