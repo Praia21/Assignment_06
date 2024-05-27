@@ -114,5 +114,4 @@ public class Course {
         Course course = (Course) obj;
         return courseId.equals(course.courseId);
     }
-
 }

@@ -49,7 +49,7 @@ public class Student {
 
     /**
      * Drops a course for the student.
-     * @param course the courese to be dropped
+     * @param course the course to be dropped
      * @return true if the course was successfully dropped and false if it was not registered
      */
     public boolean dropCourse(Course course) {
@@ -62,8 +62,6 @@ public class Student {
         }
         return false;
     }
-
-
 
     @Override
     public String toString() {
@@ -87,6 +85,4 @@ public class Student {
         Student student = (Student) obj;
         return studentId.equals(student.studentId);
     }
-
-
 }

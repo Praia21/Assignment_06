@@ -59,6 +59,4 @@ public class Assignment {
     public String toString() {
         return assignmentId + ": " + assignmentName + ", Weight: " + weight + ", Max Score: " + maxScore;
     }
-
-
 }
