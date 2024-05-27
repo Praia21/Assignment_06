@@ -64,6 +64,7 @@ public class Address {
         if (obj == null || getClass() != obj.getClass()) return false;
         Address address = (Address) obj;
         return streetNo == address.streetNo && street.equals(address.street) && city.equals(address.city) &&
-                province.equals(address.province) && postalCode.equals(address.postalCode) && country.equals(address.country);
+                province.equals(address.province) && postalCode.equals(address.postalCode) &&
+                country.equals(address.country);
     }
 }
